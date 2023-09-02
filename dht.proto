@@ -1,0 +1,38 @@
+syntax = "proto3";
+
+package dht;
+
+message NodeInfo {
+    string id = 1;
+    string address = 2;
+  }
+  
+  message KeyValue {
+    string key = 1;
+    string value = 2;
+  }
+
+  message SuccList {
+    repeated NodeInfo vt = 1;
+  }
+
+  message Empty {}
+  
+  service DHT {
+    rpc join(NodeInfo) returns (NodeInfo);
+    rpc leave(NodeInfo) returns (Empty);
+    rpc store(KeyValue) returns (KeyValue);
+    rpc retrieve(KeyValue) returns (KeyValue);
+    rpc findSuccessor(NodeInfo) returns (NodeInfo);
+    rpc notify(NodeInfo) returns (Empty);
+    rpc getPredecessor(Empty) returns (NodeInfo);
+    rpc getSuccessor(Empty) returns (NodeInfo);
+    rpc insertData(KeyValue) returns (Empty);
+    rpc retrieveData(KeyValue) returns (KeyValue);
+    rpc replicate(KeyValue) returns (Empty);
+    rpc replicate1(KeyValue) returns (Empty);
+    rpc updateSuccessor(NodeInfo) returns (Empty);
+    rpc updatePredecessor(NodeInfo) returns (Empty);
+    rpc getSuccessorList(Empty) returns (SuccList);
+    rpc ping(Empty) returns (Empty);
+  }
